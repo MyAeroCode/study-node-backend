@@ -1,23 +1,34 @@
 {
-  "name": "aws-lambda-express-typescript-study",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/MyAeroCode/aws-lambda-typescript-study.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/MyAeroCode/aws-lambda-typescript-study/issues"
-  },
-  "homepage": "https://github.com/MyAeroCode/aws-lambda-typescript-study#readme",
-  "devDependencies": {
-    "typescript": "^3.7.3"
-  }
+    "name": "aws-lambda-express-typescript-study",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "tsc",
+        "deploy": "npm run build && serverless deploy",
+        "offline": "npm run build && serverless offline"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/MyAeroCode/aws-lambda-typescript-study.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/MyAeroCode/aws-lambda-typescript-study/issues"
+    },
+    "homepage": "https://github.com/MyAeroCode/aws-lambda-typescript-study#readme",
+    "devDependencies": {
+        "@types/aws-serverless-express": "^3.3.2",
+        "serverless-offline": "^5.12.1",
+        "typescript": "^3.7.3"
+    },
+    "dependencies": {
+        "@types/aws-lambda": "^8.10.36",
+        "@types/node": "^12.12.14",
+        "aws-serverless-express": "^3.3.6",
+        "express": "^4.17.1"
+    }
 }

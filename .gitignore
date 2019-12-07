@@ -1,5 +1,8 @@
 # 의존 패키지
 node_modules/*
 
+# 서버리스 결과물
+.serverless/*
+
 # 컴파일 결과물
 out/*

@@ -22,6 +22,7 @@
     "homepage": "https://github.com/MyAeroCode/aws-lambda-typescript-study#readme",
     "devDependencies": {
         "@types/aws-serverless-express": "^3.3.2",
+        "@types/response-time": "^2.3.4",
         "serverless-offline": "^5.12.1",
         "typescript": "^3.7.3"
     },
@@ -29,6 +30,7 @@
         "@types/aws-lambda": "^8.10.36",
         "@types/node": "^12.12.14",
         "aws-serverless-express": "^3.3.6",
-        "express": "^4.17.1"
+        "express": "^4.17.1",
+        "response-time": "^2.3.2"
     }
 }

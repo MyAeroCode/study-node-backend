@@ -1,0 +1,28 @@
+service: hello-world
+
+provider:
+    runtime: nodejs8.10
+    name: aws
+    stage: dev
+    region: ap-northeast-2
+
+functions:
+    main:
+        handler: out/ex-005/Lambda.handler
+        events:
+            - http:
+                  path: /
+                  method: get
+                  cors: true
+            # 설정에서 경로변수는 {NAME}으로 지정해야 한다.
+            # 코드에서 경로변수는 :NAME 으로 지정해야 한다.
+            - http:
+                  path: /user/{username}
+                  method: get
+                  cors: true
+            - http:
+                  path: /user/{username}/{operation}
+                  method: get
+                  cors: true
+plugins:
+    - serverless-offline

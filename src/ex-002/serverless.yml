@@ -14,6 +14,10 @@ functions:
                   path: /
                   method: get
                   cors: true
+            - http:
+                  path: /
+                  method: post
+                  cors: true
 
 plugins:
     - serverless-offline

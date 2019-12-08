@@ -1,0 +1,28 @@
+service: hello-world
+
+provider:
+    runtime: nodejs8.10
+    name: aws
+    stage: dev
+    region: ap-northeast-2
+
+functions:
+    main:
+        handler: out/ex-006/Lambda.handler
+        events:
+            - http:
+                  path: /
+                  method: get
+                  cors: true
+            - http:
+                  path: /user/{username}
+                  method: get
+                  cors: true
+            # 서버리스에서 any는 특별한 키워드이며,
+            # 와일드카드로 사용하려면 {any+} 처럼 사용한다.
+            - http:
+                  path: /{any+}
+                  method: any
+                  cors: true
+plugins:
+    - serverless-offline

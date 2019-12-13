@@ -1,0 +1,19 @@
+service: hello-world
+
+provider:
+    runtime: nodejs8.10
+    name: aws
+    stage: dev
+    region: ap-northeast-2
+
+functions:
+    main:
+        handler: out/ex-016/Lambda.handler
+        events:
+            - http:
+                  path: /
+                  method: any
+                  cors: true
+
+plugins:
+    - serverless-offline

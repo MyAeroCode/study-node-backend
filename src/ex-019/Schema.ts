@@ -49,10 +49,10 @@ const FalsyNumberType = new GraphQLObjectType({
 const BinaryNumberUnion = new GraphQLUnionType({
     name: "BinaryNumberUnion",
     types: [TruthyNumberType, FalsyNumberType],
-    resolveType: SearchableTypeResolver
+    resolveType: BinaryNumberTypeResolver
 });
 
-function SearchableTypeResolver(data: any): GraphQLObjectType {
+function BinaryNumberTypeResolver(data: any): GraphQLObjectType {
     return data.number ? TruthyNumberType : FalsyNumberType;
 }
 

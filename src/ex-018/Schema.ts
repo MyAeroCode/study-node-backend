@@ -16,7 +16,7 @@ const BinaryNumberInterface = new GraphQLInterfaceType({
         number: { type: GraphQLInt },
         result: { type: GraphQLString }
     },
-    resolveType: SearchableTypeResolver
+    resolveType: BinaryNumberTypeResolver
 });
 
 /**
@@ -66,7 +66,7 @@ const FalsyNumberType = new GraphQLObjectType({
     isTypeOf: data => !data.number
 });
 
-function SearchableTypeResolver(data: any): GraphQLObjectType {
+function BinaryNumberTypeResolver(data: any): GraphQLObjectType {
     return data.number ? TruthyNumberType : FalsyNumberType;
 }
 

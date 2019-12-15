@@ -29,7 +29,7 @@ function arr2str(arr: number[]): string {
  * 채널값 3개가 담긴 배열로 반환한다.
  */
 function str2arr(str: string): number[] {
-    if (!/^#[0-9a-f]{6}/.test(str)) {
+    if (!/^#[0-9a-f]{6}$/.test(str)) {
         throw Error(`${str} is not hex RGB`);
     }
     let arr: number[] = [];

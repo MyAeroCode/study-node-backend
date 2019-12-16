@@ -99,21 +99,11 @@ let profileConnection = new GraphQLObjectType({
             }
         },
 
-        /**
-         * @todo
-         * 아래의 pageInfo 리졸버랑 겹치는데 좋은 방법이 없을까...
-         */
         edges: {
             type: new GraphQLList(profileEdge),
             resolve: parent => {
                 let start = 0;
 
-                /**
-                 * 주어진 커서로 시작 인덱스 번호를 찾는다.
-                 *
-                 * @todo
-                 * 선형으로밖에 못찾나?...
-                 */
                 if (parent.after != undefined) {
                     start = -1;
                     for (let i = 0; i < data.length; i++) {
@@ -131,21 +121,11 @@ let profileConnection = new GraphQLObjectType({
             }
         },
 
-        /**
-         * @todo
-         * 위의 edges 리졸버랑 겹치는데 좋은 방법이 없을까...
-         */
         pageInfo: {
             type: profilePageInfo,
             resolve: parent => {
                 let start = 0;
 
-                /**
-                 * 주어진 커서로 시작 인덱스 번호를 찾는다.
-                 *
-                 * @todo
-                 * 선형으로밖에 못찾나?...
-                 */
                 if (parent.after != undefined) {
                     start = -1;
                     for (let i = 0; i < data.length; i++) {

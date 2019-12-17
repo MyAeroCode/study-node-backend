@@ -22,7 +22,7 @@ class TestCase {
         shuffle<string>(LoLChampions)
             .slice(0, userSize)
             .forEach(name => {
-                this.userList.push(new User(name));
+                this.userList.push({ name: name });
             });
 
         shuffle<string>(LoremIpsum)
@@ -31,12 +31,24 @@ class TestCase {
                 let author = this.userList[idx % this.userList.length];
                 let likeThisPostCnt =
                     Math.floor(Math.random() * 1000) % userSize;
-                let likeList = shuffle<User>(this.userList)
+                let likeList: Like[] = [];
+                shuffle<User>(this.userList)
                     .slice(0, likeThisPostCnt)
-                    .map(user => {
-                        return new Like(user);
+                    .forEach(user => {
+                        let max = 1675090800000; // 2022-12-31
+                        let min = 1485874800000; // 2017-01-01
+                        likeList.push({
+                            who: user,
+                            when: Math.floor(
+                                Math.random() * (max - min + 1) + min
+                            )
+                        });
                     });
-                this.postList.push(new Post(title, author, likeList));
+                this.postList.push({
+                    title: title,
+                    author: author,
+                    liked: likeList
+                });
             });
     }
 }

@@ -1,37 +1,72 @@
 import { Post } from "../ds/Post";
+import { IsNumber, IsOptional, IsString, IsBoolean } from "class-validator";
+import { TypeGuard } from "../../common/typeGuard";
 
-export interface PostRequestArgs {
-    get: number;
-    cursor: string | undefined;
+export class PostRequestArgs {
+    @IsNumber()
+    get!: number;
+
+    @IsOptional()
+    @IsString()
+    cursor?: string;
 }
 
-export interface UserRequestArgs {
-    get: number;
-    cursor: string | undefined;
+export class UserRequestArgs {
+    @IsNumber()
+    get!: number;
+
+    @IsOptional()
+    @IsString()
+    cursor?: string;
 }
 
-export interface LikeRequestArgs {
-    get: number;
-    cursor: string | undefined;
-    postCursor: string;
-    post: Post;
+export class LikeRequestArgs {
+    @IsNumber()
+    get!: number;
+
+    @IsOptional()
+    @IsString()
+    cursor?: string;
+
+    @IsString()
+    postCursor!: string;
+
+    @TypeGuard(new Post())
+    post!: Post;
 }
 
-export interface PostVectorRange {
-    srt: number;
-    end: number;
-    forward: boolean;
+export class PostVectorRange {
+    @IsNumber()
+    srt!: number;
+
+    @IsNumber()
+    end!: number;
+
+    @IsBoolean()
+    forward!: boolean;
 }
 
-export interface UserVectorRange {
-    srt: number;
-    end: number;
-    forward: boolean;
+export class UserVectorRange {
+    @IsNumber()
+    srt!: number;
+
+    @IsNumber()
+    end!: number;
+
+    @IsBoolean()
+    forward!: boolean;
 }
 
-export interface LikeVectorRange {
-    srt: number;
-    end: number;
-    forward: boolean;
-    post: Post;
+export class LikeVectorRange {
+    @IsNumber()
+    srt!: number;
+
+    @IsNumber()
+    end!: number;
+
+    @IsBoolean()
+    forward!: boolean;
+
+    @TypeGuard(new Post())
+    post!: Post;
 }

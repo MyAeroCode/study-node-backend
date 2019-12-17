@@ -13,6 +13,7 @@ import { UserRequestArgs, PostRequestArgs, LikeRequestArgs } from "./interface";
 import { User } from "../ds/User";
 import { Post } from "../ds/Post";
 import testCase from "../testCaseGenerator/TestCase";
+import { guardianSync } from "../../common/typeGuard";
 
 export const query = new GraphQLObjectType<any, any, any>({
     name: "connectionTestQuery",
@@ -21,27 +22,41 @@ export const query = new GraphQLObjectType<any, any, any>({
         requestUser: {
             type: userConnection,
             args: {
-                get: { type: new GraphQLNonNull(GraphQLInt) },
-                pivot: { type: GraphQLString }
+                get: { type: GraphQLInt },
+                cursor: { type: GraphQLString }
             },
-            resolve: (_, args: UserRequestArgs): UserRequestArgs => args
+            resolve: (_, args: UserRequestArgs): UserRequestArgs => {
+                if (!guardianSync(args, new UserRequestArgs())) {
+                    throw new Error("인자 형식이 맞지 않습니다.");
+                }
+                return args;
+            }
         },
         requestPost: {
             type: postConnection,
             args: {
                 get: { type: new GraphQLNonNull(GraphQLInt) },
-                pivot: { type: GraphQLString }
+                cursor: { type: GraphQLString }
             },
-            resolve: (_, args: PostRequestArgs): PostRequestArgs => args
+            resolve: (_, args: PostRequestArgs): PostRequestArgs => {
+                if (!guardianSync(args, new PostRequestArgs())) {
+                    throw new Error("인자 형식이 맞지 않습니다.");
+                }
+                return args;
+            }
         },
         requestLike: {
             type: likeConnection,
             args: {
                 get: { type: new GraphQLNonNull(GraphQLInt) },
-                pivot: { type: GraphQLString },
+                cursor: { type: GraphQLString },
                 postCursor: { type: GraphQLString }
             },
             resolve: (_, args: LikeRequestArgs): LikeRequestArgs => {
+                if (!guardianSync(args, new LikeRequestArgs())) {
+                    throw new Error("인자 형식이 맞지 않습니다.");
+                }
+
                 let postIndex: number = getIdxByCursor(
                     testCase.postList,
                     args.postCursor,

@@ -1,6 +1,6 @@
+import { IsString } from "class-validator";
+
 export class User {
-    public name: string;
-    constructor(name: string) {
-        this.name = name;
-    }
+    @IsString()
+    name!: string;
 }

@@ -26,7 +26,7 @@ export const query = new GraphQLObjectType<any, any, any>({
                 cursor: { type: GraphQLString }
             },
             resolve: (_, args: UserRequestArgs): UserRequestArgs => {
-                if (!guardianSync(args, new UserRequestArgs())) {
+                if (!guardianSync(args, UserRequestArgs)) {
                     throw new Error("인자 형식이 맞지 않습니다.");
                 }
                 return args;
@@ -39,7 +39,7 @@ export const query = new GraphQLObjectType<any, any, any>({
                 cursor: { type: GraphQLString }
             },
             resolve: (_, args: PostRequestArgs): PostRequestArgs => {
-                if (!guardianSync(args, new PostRequestArgs())) {
+                if (!guardianSync(args, PostRequestArgs)) {
                     throw new Error("인자 형식이 맞지 않습니다.");
                 }
                 return args;
@@ -53,7 +53,7 @@ export const query = new GraphQLObjectType<any, any, any>({
                 postCursor: { type: GraphQLString }
             },
             resolve: (_, args: LikeRequestArgs): LikeRequestArgs => {
-                if (!guardianSync(args, new LikeRequestArgs())) {
+                if (!guardianSync(args, LikeRequestArgs)) {
                     throw new Error("인자 형식이 맞지 않습니다.");
                 }
 

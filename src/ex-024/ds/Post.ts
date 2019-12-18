@@ -7,9 +7,9 @@ export class Post {
     @IsString()
     title!: string;
 
-    @TypeGuard(new User())
+    @TypeGuard(User)
     author!: User;
 
-    @TypeGuardArray(new Like())
+    @TypeGuardArray(Like)
     liked!: Like[];
 }

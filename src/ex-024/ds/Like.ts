@@ -3,7 +3,7 @@ import { TypeGuard } from "../../common/typeGuard";
 import { IsNumber } from "class-validator";
 
 export class Like {
-    @TypeGuard(new User())
+    @TypeGuard(User)
     who!: User;
 
     @IsNumber()

@@ -5,12 +5,16 @@ import {
     GraphQLInt,
     GraphQLList
 } from "graphql";
-import { adjustNumber, getIdxByCursor, base64 } from "./commonLibrary";
 import { Post } from "../ds/Post";
 import { User } from "../ds/User";
 import { user } from "./TypeUser";
 import { PostVectorRange, PostRequestArgs } from "./interface";
 import testCase from "../testCaseGenerator/TestCase";
+import {
+    base64encode,
+    adjustNumber,
+    getIdxByCursor
+} from "../../common/Library";
 
 export const post = new GraphQLObjectType<Post>({
     name: "post",
@@ -35,7 +39,7 @@ export const postEdge = new GraphQLObjectType<Post>({
         },
         cursor: {
             type: GraphQLString,
-            resolve: (source: Post): string => base64(source.title)
+            resolve: (source: Post): string => base64encode(source.title)
         }
     }
 });
@@ -49,7 +53,7 @@ export const postPageInfo = new GraphQLObjectType<PostVectorRange>({
                 let list = testCase.postList;
                 if (list.length == 0) return null;
 
-                return base64(
+                return base64encode(
                     source.forward
                         ? list[adjustNumber(0, list.length, source.srt)].title
                         : list[adjustNumber(0, list.length, source.end)].title
@@ -62,7 +66,7 @@ export const postPageInfo = new GraphQLObjectType<PostVectorRange>({
                 let list = testCase.postList;
                 if (list.length == 0) return null;
 
-                return base64(
+                return base64encode(
                     source.forward
                         ? list[adjustNumber(0, list.length, source.end)].title
                         : list[adjustNumber(0, list.length, source.srt)].title
@@ -104,7 +108,7 @@ export const postConnection = new GraphQLObjectType<PostRequestArgs>({
                 // 기준점 찾기
                 if (cursor)
                     cursorIdx = getIdxByCursor<Post>(list, cursor, v =>
-                        base64(v.title)
+                        base64encode(v.title)
                     );
                 else if (get < 0) cursorIdx = list.length;
                 else if (get > 0) cursorIdx = -1;
@@ -131,7 +135,7 @@ export const postConnection = new GraphQLObjectType<PostRequestArgs>({
                 // 기준점 찾기
                 if (cursor)
                     cursorIdx = getIdxByCursor<Post>(list, cursor, v =>
-                        base64(v.title)
+                        base64encode(v.title)
                     );
                 else if (get < 0) cursorIdx = list.length;
                 else if (get > 0) cursorIdx = -1;

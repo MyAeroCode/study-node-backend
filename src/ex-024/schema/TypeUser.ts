@@ -5,10 +5,14 @@ import {
     GraphQLInt,
     GraphQLList
 } from "graphql";
-import { base64, adjustNumber, getIdxByCursor } from "./commonLibrary";
 import { User } from "../ds/User";
 import { UserRequestArgs, UserVectorRange } from "./interface";
 import testCase from "../testCaseGenerator/TestCase";
+import {
+    base64encode,
+    adjustNumber,
+    getIdxByCursor
+} from "../../common/Library";
 
 export const user = new GraphQLObjectType<User>({
     name: "user",
@@ -31,7 +35,7 @@ export const userEdge = new GraphQLObjectType<User>({
         },
         cursor: {
             type: GraphQLString,
-            resolve: (source: User): string => base64(source.name)
+            resolve: (source: User): string => base64encode(source.name)
         }
     }
 });
@@ -46,10 +50,10 @@ export const userPageInfo = new GraphQLObjectType<UserVectorRange>({
                 if (list.length == 0) return null;
 
                 return source.forward
-                    ? base64(
+                    ? base64encode(
                           list[adjustNumber(0, list.length, source.srt)].name
                       )
-                    : base64(
+                    : base64encode(
                           list[adjustNumber(0, list.length, source.end)].name
                       );
             }
@@ -61,10 +65,10 @@ export const userPageInfo = new GraphQLObjectType<UserVectorRange>({
                 if (list.length == 0) return null;
 
                 return source.forward
-                    ? base64(
+                    ? base64encode(
                           list[adjustNumber(0, list.length, source.end)].name
                       )
-                    : base64(
+                    : base64encode(
                           list[adjustNumber(0, list.length, source.srt)].name
                       );
             }
@@ -101,7 +105,7 @@ export const userConnection = new GraphQLObjectType<UserRequestArgs>({
                 // 기준점 찾기
                 if (cursor)
                     cursorIdx = getIdxByCursor<User>(list, cursor, v =>
-                        base64(v.name)
+                        base64encode(v.name)
                     );
                 else if (get < 0) cursorIdx = list.length;
                 else if (get > 0) cursorIdx = -1;
@@ -128,7 +132,7 @@ export const userConnection = new GraphQLObjectType<UserRequestArgs>({
                 // 기준점 찾기
                 if (cursor)
                     cursorIdx = getIdxByCursor<User>(list, cursor, v =>
-                        base64(v.name)
+                        base64encode(v.name)
                     );
                 else if (get < 0) cursorIdx = list.length;
                 else if (get > 0) cursorIdx = -1;

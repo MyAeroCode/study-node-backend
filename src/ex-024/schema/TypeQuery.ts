@@ -8,12 +8,12 @@ import {
 import { userConnection, userEdge } from "./TypeUser";
 import { postEdge, postConnection } from "./TypePost";
 import { likeConnection } from "./TypeLike";
-import { getIdxByCursor, base64 } from "./commonLibrary";
 import { UserRequestArgs, PostRequestArgs, LikeRequestArgs } from "./interface";
 import { User } from "../ds/User";
 import { Post } from "../ds/Post";
 import testCase from "../testCaseGenerator/TestCase";
-import { guardianSync } from "../../common/typeGuard";
+import { guardianSync } from "../../common/TypeGuard";
+import { getIdxByCursor, base64encode } from "../../common/Library";
 
 export const query = new GraphQLObjectType<any, any, any>({
     name: "connectionTestQuery",
@@ -60,7 +60,7 @@ export const query = new GraphQLObjectType<any, any, any>({
                 let postIndex: number = getIdxByCursor(
                     testCase.postList,
                     args.postCursor,
-                    post => base64(post.title)
+                    post => base64encode(post.title)
                 );
                 args.post = testCase.postList[postIndex];
                 return args;

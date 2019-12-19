@@ -1,6 +1,6 @@
 import { Post } from "../ds/Post";
 import { IsNumber, IsOptional, IsString, IsBoolean } from "class-validator";
-import { TypeGuard } from "../../common/typeGuard";
+import { TypeGuard } from "../../common/TypeGuard";
 
 export class PostRequestArgs {
     @IsNumber()

@@ -3,8 +3,7 @@ import LoremIpsum from "./LoremIpsumData";
 import { User } from "../ds/User";
 import { Post } from "../ds/Post";
 import { Like } from "../ds/Like";
-import { shuffle } from "../schema/commonLibrary";
-
+import { shuffle } from "../../common/Library";
 const userSize: number = 70;
 const postSize: number = 100;
 

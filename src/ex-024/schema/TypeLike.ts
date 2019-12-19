@@ -5,12 +5,16 @@ import {
     GraphQLList,
     GraphQLBoolean
 } from "graphql";
-import { getIdxByCursor, adjustNumber, base64 } from "./commonLibrary";
 import { user } from "./TypeUser";
 import { Like } from "../ds/Like";
 import { Post } from "../ds/Post";
 import { User } from "../ds/User";
 import { LikeRequestArgs, LikeVectorRange } from "./interface";
+import {
+    base64encode,
+    adjustNumber,
+    getIdxByCursor
+} from "../../common/Library";
 
 export const like = new GraphQLObjectType<Like>({
     name: "like",
@@ -31,7 +35,8 @@ export const likeEdge = new GraphQLObjectType<Like>({
         },
         cursor: {
             type: GraphQLString,
-            resolve: (source: Like): string => base64(source.when.toString())
+            resolve: (source: Like): string =>
+                base64encode(source.when.toString())
         }
     }
 });
@@ -46,7 +51,7 @@ export const likePageInfo = new GraphQLObjectType<LikeVectorRange>({
                 let list = post.liked;
                 if (list.length == 0) return null;
 
-                return base64(
+                return base64encode(
                     list[
                         source.forward
                             ? adjustNumber(0, list.length, source.srt)
@@ -62,7 +67,7 @@ export const likePageInfo = new GraphQLObjectType<LikeVectorRange>({
                 let list = post.liked;
                 if (list.length == 0) return null;
 
-                return base64(
+                return base64encode(
                     list[
                         source.forward
                             ? adjustNumber(0, list.length, source.end)
@@ -104,7 +109,7 @@ export const likeConnection = new GraphQLObjectType<LikeRequestArgs>({
                 // 기준점 찾기
                 if (cursor)
                     cursorIdx = getIdxByCursor<Like>(list, cursor, v =>
-                        base64(v.when.toString())
+                        base64encode(v.when.toString())
                     );
                 else if (get < 0) cursorIdx = list.length;
                 else if (get > 0) cursorIdx = -1;
@@ -132,7 +137,7 @@ export const likeConnection = new GraphQLObjectType<LikeRequestArgs>({
                 // 기준점 찾기
                 if (cursor)
                     cursorIdx = getIdxByCursor<Like>(list, cursor, v =>
-                        base64(v.when.toString())
+                        base64encode(v.when.toString())
                     );
                 else if (get < 0) cursorIdx = list.length;
                 else if (get > 0) cursorIdx = -1;

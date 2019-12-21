@@ -1,15 +1,15 @@
 import { User } from "./User";
 import { Like } from "./Like";
 import { IsString } from "class-validator";
-import { TypeGuard, TypeGuardArray } from "../../common/TypeGuard";
+import { TypeGuard } from "ts-type-guard";
 
 export class Post {
     @IsString()
     title!: string;
 
-    @TypeGuard(User)
+    @TypeGuard.GuardObject(User)
     author!: User;
 
-    @TypeGuardArray(Like)
+    @TypeGuard.GuardArray(Like)
     liked!: Like[];
 }

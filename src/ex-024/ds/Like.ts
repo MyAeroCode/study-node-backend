@@ -1,9 +1,9 @@
 import { User } from "./User";
 import { IsNumber } from "class-validator";
-import { TypeGuard } from "../../common/TypeGuard";
+import { TypeGuard } from "ts-type-guard";
 
 export class Like {
-    @TypeGuard(User)
+    @TypeGuard.GuardObject(User)
     who!: User;
 
     @IsNumber()

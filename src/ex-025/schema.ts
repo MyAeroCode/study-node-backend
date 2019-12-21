@@ -14,9 +14,9 @@ import {
     UserEdge,
     UserPageInfo
 } from "./ds";
-import { guardianSync } from "../common/TypeGuard";
 import { base64decode, base64encode, adjustNumber } from "../common/Library";
 import { conn } from "./conn";
+import { TypeCheck } from "ts-type-guard";
 var attr = require("dynamodb-data-types").AttributeValue;
 
 const user = new GraphQLObjectType<User, any, any>({
@@ -94,7 +94,7 @@ const query = new GraphQLObjectType<null, any, any>({
                 _,
                 args: ConnectionArgs
             ): Promise<UserConnection> => {
-                if (!guardianSync(args, ConnectionArgs)) {
+                if (TypeCheck.hasError(args, ConnectionArgs)) {
                     throw new Error("타입가드 에러");
                 }
 
@@ -124,7 +124,7 @@ const query = new GraphQLObjectType<null, any, any>({
                     let edge: UserEdge = Object.assign(new UserEdge(), {
                         node: v
                     });
-                    if (!guardianSync(edge, UserEdge))
+                    if (TypeCheck.hasError(edge, UserEdge))
                         throw new Error("typeguard");
                     else edges.push(edge);
                 });

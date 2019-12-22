@@ -181,7 +181,7 @@ export default async function SampleGenerator() {
         })
         .then(async function createSampleData() {
             console.log("# 데이터를 삽입합니다.");
-            LolChampions.forEach(async name => {
+            LolChampions.forEach(async (name) => {
                 let args: PutItemInput = {
                     TableName: tableName,
                     Item: {

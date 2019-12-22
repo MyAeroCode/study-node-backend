@@ -1,10 +1,4 @@
-import {
-    GraphQLObjectType,
-    GraphQLList,
-    GraphQLNonNull,
-    GraphQLInt,
-    GraphQLString
-} from "graphql";
+import { GraphQLObjectType, GraphQLList, GraphQLNonNull, GraphQLInt, GraphQLString } from "graphql";
 import { userConnection, userEdge } from "./TypeUser";
 import { postEdge, postConnection } from "./TypePost";
 import { likeConnection } from "./TypeLike";
@@ -57,11 +51,7 @@ export const query = new GraphQLObjectType<any, any, any>({
                     throw new Error("인자 형식이 맞지 않습니다.");
                 }
 
-                let postIndex: number = getIdxByCursor(
-                    testCase.postList,
-                    args.postCursor,
-                    post => base64encode(post.title)
-                );
+                let postIndex: number = getIdxByCursor(testCase.postList, args.postCursor, (post) => base64encode(post.title));
                 args.post = testCase.postList[postIndex];
                 return args;
             }

@@ -1,10 +1,4 @@
-import {
-    GraphQLObjectType,
-    GraphQLSchema,
-    GraphQLInt,
-    GraphQLString,
-    GraphQLUnionType
-} from "graphql";
+import { GraphQLObjectType, GraphQLSchema, GraphQLInt, GraphQLString, GraphQLUnionType } from "graphql";
 
 const TruthyNumberType = new GraphQLObjectType({
     name: "TruthyNumberType",
@@ -23,7 +17,7 @@ const TruthyNumberType = new GraphQLObjectType({
             }
         }
     },
-    isTypeOf: data => data.number
+    isTypeOf: (data) => data.number
 });
 
 const FalsyNumberType = new GraphQLObjectType({
@@ -43,7 +37,7 @@ const FalsyNumberType = new GraphQLObjectType({
             }
         }
     },
-    isTypeOf: data => !data.number
+    isTypeOf: (data) => !data.number
 });
 
 const BinaryNumberUnion = new GraphQLUnionType({

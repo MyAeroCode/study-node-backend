@@ -6,11 +6,7 @@
  * @param cursor    찾을 커서값
  * @param convert   아이템을 커서값으로 변경하는 함수
  */
-export function getIdxByCursor<T>(
-    arr: T[],
-    cursor: string,
-    convert: (v: T) => string
-): number {
+export function getIdxByCursor<T>(arr: T[], cursor: string, convert: (v: T) => string): number {
     for (let i = 0; i < arr.length; i++) {
         let thisCursor: string = convert(arr[i]);
         if (thisCursor === cursor) {

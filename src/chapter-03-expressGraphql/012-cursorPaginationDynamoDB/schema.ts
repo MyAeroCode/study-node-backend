@@ -1,19 +1,5 @@
-import {
-    GraphQLObjectType,
-    GraphQLSchema,
-    GraphQLNonNull,
-    GraphQLInt,
-    GraphQLString,
-    GraphQLList,
-    GraphQLBoolean
-} from "graphql";
-import {
-    ConnectionArgs,
-    User,
-    UserConnection,
-    UserEdge,
-    UserPageInfo
-} from "./ds";
+import { GraphQLObjectType, GraphQLSchema, GraphQLNonNull, GraphQLInt, GraphQLString, GraphQLList, GraphQLBoolean } from "graphql";
+import { ConnectionArgs, User, UserConnection, UserEdge, UserPageInfo } from "./ds";
 import { base64decode, base64encode, adjustNumber } from "./Library";
 import { conn } from "./conn";
 import { TypeCheck } from "ts-type-guard";
@@ -69,9 +55,7 @@ const userConnection = new GraphQLObjectType<UserConnection, any, any>({
             resolve: (source): number => source.scannedCount
         },
         edges: {
-            type: new GraphQLNonNull(
-                new GraphQLList(new GraphQLNonNull(userEdge))
-            ),
+            type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(userEdge))),
             resolve: (source): UserEdge[] => source.edges
         },
         pageInfo: {
@@ -90,10 +74,7 @@ const query = new GraphQLObjectType<null, any, any>({
                 get: { type: new GraphQLNonNull(GraphQLInt) },
                 after: { type: GraphQLString }
             },
-            resolve: async (
-                _,
-                args: ConnectionArgs
-            ): Promise<UserConnection> => {
+            resolve: async (_, args: ConnectionArgs): Promise<UserConnection> => {
                 if (TypeCheck.hasError(args, ConnectionArgs)) {
                     throw new Error("타입가드 에러");
                 }
@@ -108,24 +89,19 @@ const query = new GraphQLObjectType<null, any, any>({
                     .scan({
                         TableName: "UserSample",
                         Limit: adjustNumber(1, 26, args.get),
-                        ExclusiveStartKey: args.after
-                            ? JSON.parse(base64decode(args.after))
-                            : undefined
+                        ExclusiveStartKey: args.after ? JSON.parse(base64decode(args.after)) : undefined
                     })
                     .promise();
 
-                let after: string | undefined = result.LastEvaluatedKey
-                    ? base64encode(JSON.stringify(result.LastEvaluatedKey))
-                    : undefined;
+                let after: string | undefined = result.LastEvaluatedKey ? base64encode(JSON.stringify(result.LastEvaluatedKey)) : undefined;
 
                 let edges: UserEdge[] = [];
-                result.Items?.forEach(item => {
+                result.Items?.forEach((item) => {
                     let v = attr.unwrap(item);
                     let edge: UserEdge = Object.assign(new UserEdge(), {
                         node: v
                     });
-                    if (TypeCheck.hasError(edge, UserEdge))
-                        throw new Error("typeguard");
+                    if (TypeCheck.hasError(edge, UserEdge)) throw new Error("typeguard");
                     else edges.push(edge);
                 });
 

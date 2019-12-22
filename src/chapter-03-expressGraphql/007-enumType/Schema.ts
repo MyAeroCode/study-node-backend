@@ -1,9 +1,4 @@
-import {
-    GraphQLObjectType,
-    GraphQLSchema,
-    GraphQLString,
-    GraphQLEnumType
-} from "graphql";
+import { GraphQLObjectType, GraphQLSchema, GraphQLString, GraphQLEnumType } from "graphql";
 
 /**
  * 열거형을 사용할 때는,

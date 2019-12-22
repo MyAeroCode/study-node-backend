@@ -1,10 +1,4 @@
-import {
-    GraphQLObjectType,
-    GraphQLSchema,
-    GraphQLInt,
-    GraphQLInterfaceType,
-    GraphQLString
-} from "graphql";
+import { GraphQLObjectType, GraphQLSchema, GraphQLInt, GraphQLInterfaceType, GraphQLString } from "graphql";
 
 /**
  * 인터페이스 정의부.
@@ -42,7 +36,7 @@ const TruthyNumberType = new GraphQLObjectType({
             }
         }
     },
-    isTypeOf: data => data.number
+    isTypeOf: (data) => data.number
 });
 
 const FalsyNumberType = new GraphQLObjectType({
@@ -63,7 +57,7 @@ const FalsyNumberType = new GraphQLObjectType({
             }
         }
     },
-    isTypeOf: data => !data.number
+    isTypeOf: (data) => !data.number
 });
 
 function BinaryNumberTypeResolver(data: any): GraphQLObjectType {

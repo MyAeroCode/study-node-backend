@@ -11,10 +11,7 @@ app.use(cookieParser());
  */
 const rootRouter = express.Router();
 rootRouter.get("/", async function(req, res) {
-    const count: number =
-        !req.cookies.count || isNaN(Number(req.cookies.count))
-            ? 0
-            : Number(req.cookies.count);
+    const count: number = !req.cookies.count || isNaN(Number(req.cookies.count)) ? 0 : Number(req.cookies.count);
     res.cookie("count", count + 1);
     res.send(count.toString());
 });

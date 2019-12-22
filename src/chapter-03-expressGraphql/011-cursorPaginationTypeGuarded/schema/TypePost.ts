@@ -1,20 +1,10 @@
-import {
-    GraphQLObjectType,
-    GraphQLString,
-    GraphQLBoolean,
-    GraphQLInt,
-    GraphQLList
-} from "graphql";
+import { GraphQLObjectType, GraphQLString, GraphQLBoolean, GraphQLInt, GraphQLList } from "graphql";
 import { Post } from "../ds/Post";
 import { User } from "../ds/User";
 import { user } from "./TypeUser";
 import { PostVectorRange, PostRequestArgs } from "./interface";
 import testCase from "../testCaseGenerator/TestCase";
-import {
-    base64encode,
-    adjustNumber,
-    getIdxByCursor
-} from "../Library";
+import { base64encode, adjustNumber, getIdxByCursor } from "../Library";
 
 export const post = new GraphQLObjectType<Post>({
     name: "post",
@@ -53,11 +43,7 @@ export const postPageInfo = new GraphQLObjectType<PostVectorRange>({
                 let list = testCase.postList;
                 if (list.length == 0) return null;
 
-                return base64encode(
-                    source.forward
-                        ? list[adjustNumber(0, list.length, source.srt)].title
-                        : list[adjustNumber(0, list.length, source.end)].title
-                );
+                return base64encode(source.forward ? list[adjustNumber(0, list.length, source.srt)].title : list[adjustNumber(0, list.length, source.end)].title);
             }
         },
         after: {
@@ -66,11 +52,7 @@ export const postPageInfo = new GraphQLObjectType<PostVectorRange>({
                 let list = testCase.postList;
                 if (list.length == 0) return null;
 
-                return base64encode(
-                    source.forward
-                        ? list[adjustNumber(0, list.length, source.end)].title
-                        : list[adjustNumber(0, list.length, source.srt)].title
-                );
+                return base64encode(source.forward ? list[adjustNumber(0, list.length, source.end)].title : list[adjustNumber(0, list.length, source.srt)].title);
             }
         },
         hasNextPage: {
@@ -78,9 +60,7 @@ export const postPageInfo = new GraphQLObjectType<PostVectorRange>({
             resolve: (source: PostVectorRange): boolean => {
                 let list = testCase.postList;
 
-                return source.forward
-                    ? source.end != list.length
-                    : source.srt != 0;
+                return source.forward ? source.end != list.length : source.srt != 0;
             }
         }
     }
@@ -106,20 +86,12 @@ export const postConnection = new GraphQLObjectType<PostRequestArgs>({
                 let list = testCase.postList;
 
                 // 기준점 찾기
-                if (cursor)
-                    cursorIdx = getIdxByCursor<Post>(list, cursor, v =>
-                        base64encode(v.title)
-                    );
+                if (cursor) cursorIdx = getIdxByCursor<Post>(list, cursor, (v) => base64encode(v.title));
                 else if (get < 0) cursorIdx = list.length;
                 else if (get > 0) cursorIdx = -1;
 
                 // 데이터 반환하기.
-                return get > 0
-                    ? list.slice(
-                          cursorIdx + 1,
-                          Math.min(cursorIdx + get + 1, list.length)
-                      )
-                    : list.slice(Math.max(cursorIdx + get, 0), cursorIdx);
+                return get > 0 ? list.slice(cursorIdx + 1, Math.min(cursorIdx + get + 1, list.length)) : list.slice(Math.max(cursorIdx + get, 0), cursorIdx);
             }
         },
         pageInfo: {
@@ -133,10 +105,7 @@ export const postConnection = new GraphQLObjectType<PostRequestArgs>({
                 let list = testCase.postList;
 
                 // 기준점 찾기
-                if (cursor)
-                    cursorIdx = getIdxByCursor<Post>(list, cursor, v =>
-                        base64encode(v.title)
-                    );
+                if (cursor) cursorIdx = getIdxByCursor<Post>(list, cursor, (v) => base64encode(v.title));
                 else if (get < 0) cursorIdx = list.length;
                 else if (get > 0) cursorIdx = -1;
 

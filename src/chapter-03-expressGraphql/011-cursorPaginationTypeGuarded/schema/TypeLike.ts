@@ -1,20 +1,10 @@
-import {
-    GraphQLObjectType,
-    GraphQLString,
-    GraphQLInt,
-    GraphQLList,
-    GraphQLBoolean
-} from "graphql";
+import { GraphQLObjectType, GraphQLString, GraphQLInt, GraphQLList, GraphQLBoolean } from "graphql";
 import { user } from "./TypeUser";
 import { Like } from "../ds/Like";
 import { Post } from "../ds/Post";
 import { User } from "../ds/User";
 import { LikeRequestArgs, LikeVectorRange } from "./interface";
-import {
-    base64encode,
-    adjustNumber,
-    getIdxByCursor
-} from "../Library";
+import { base64encode, adjustNumber, getIdxByCursor } from "../Library";
 
 export const like = new GraphQLObjectType<Like>({
     name: "like",
@@ -35,8 +25,7 @@ export const likeEdge = new GraphQLObjectType<Like>({
         },
         cursor: {
             type: GraphQLString,
-            resolve: (source: Like): string =>
-                base64encode(source.when.toString())
+            resolve: (source: Like): string => base64encode(source.when.toString())
         }
     }
 });
@@ -51,13 +40,7 @@ export const likePageInfo = new GraphQLObjectType<LikeVectorRange>({
                 let list = post.liked;
                 if (list.length == 0) return null;
 
-                return base64encode(
-                    list[
-                        source.forward
-                            ? adjustNumber(0, list.length, source.srt)
-                            : adjustNumber(0, list.length, source.end)
-                    ].when.toString()
-                );
+                return base64encode(list[source.forward ? adjustNumber(0, list.length, source.srt) : adjustNumber(0, list.length, source.end)].when.toString());
             }
         },
         after: {
@@ -67,21 +50,13 @@ export const likePageInfo = new GraphQLObjectType<LikeVectorRange>({
                 let list = post.liked;
                 if (list.length == 0) return null;
 
-                return base64encode(
-                    list[
-                        source.forward
-                            ? adjustNumber(0, list.length, source.end)
-                            : adjustNumber(0, list.length, source.srt)
-                    ].when.toString()
-                );
+                return base64encode(list[source.forward ? adjustNumber(0, list.length, source.end) : adjustNumber(0, list.length, source.srt)].when.toString());
             }
         },
         hasNextPage: {
             type: GraphQLBoolean,
             resolve: (source: LikeVectorRange): boolean => {
-                return source.forward
-                    ? source.end != source.post.liked.length
-                    : source.srt != 0;
+                return source.forward ? source.end != source.post.liked.length : source.srt != 0;
             }
         }
     }
@@ -92,8 +67,7 @@ export const likeConnection = new GraphQLObjectType<LikeRequestArgs>({
     fields: {
         totalCount: {
             type: GraphQLInt,
-            resolve: (source: LikeRequestArgs): number =>
-                source.post.liked.length
+            resolve: (source: LikeRequestArgs): number => source.post.liked.length
         },
         edgs: {
             type: new GraphQLList(likeEdge),
@@ -107,20 +81,12 @@ export const likeConnection = new GraphQLObjectType<LikeRequestArgs>({
                 let list = post.liked;
 
                 // 기준점 찾기
-                if (cursor)
-                    cursorIdx = getIdxByCursor<Like>(list, cursor, v =>
-                        base64encode(v.when.toString())
-                    );
+                if (cursor) cursorIdx = getIdxByCursor<Like>(list, cursor, (v) => base64encode(v.when.toString()));
                 else if (get < 0) cursorIdx = list.length;
                 else if (get > 0) cursorIdx = -1;
 
                 // 데이터 반환하기.
-                return get > 0
-                    ? list.slice(
-                          cursorIdx + 1,
-                          Math.min(cursorIdx + get + 1, list.length)
-                      )
-                    : list.slice(Math.max(cursorIdx + get, 0), cursorIdx);
+                return get > 0 ? list.slice(cursorIdx + 1, Math.min(cursorIdx + get + 1, list.length)) : list.slice(Math.max(cursorIdx + get, 0), cursorIdx);
             }
         },
         pageInfo: {
@@ -135,10 +101,7 @@ export const likeConnection = new GraphQLObjectType<LikeRequestArgs>({
                 let list = post.liked;
 
                 // 기준점 찾기
-                if (cursor)
-                    cursorIdx = getIdxByCursor<Like>(list, cursor, v =>
-                        base64encode(v.when.toString())
-                    );
+                if (cursor) cursorIdx = getIdxByCursor<Like>(list, cursor, (v) => base64encode(v.when.toString()));
                 else if (get < 0) cursorIdx = list.length;
                 else if (get > 0) cursorIdx = -1;
 

@@ -1,12 +1,4 @@
-import {
-    GraphQLObjectType,
-    GraphQLSchema,
-    GraphQLInt,
-    GraphQLList,
-    GraphQLString,
-    GraphQLBoolean,
-    GraphQLNonNull
-} from "graphql";
+import { GraphQLObjectType, GraphQLSchema, GraphQLInt, GraphQLList, GraphQLString, GraphQLBoolean, GraphQLNonNull } from "graphql";
 
 /**
  * 롤 챔피언 데이터와
@@ -101,7 +93,7 @@ let profileConnection = new GraphQLObjectType({
 
         edges: {
             type: new GraphQLList(profileEdge),
-            resolve: parent => {
+            resolve: (parent) => {
                 let start = 0;
 
                 if (parent.after != undefined) {
@@ -123,7 +115,7 @@ let profileConnection = new GraphQLObjectType({
 
         pageInfo: {
             type: profilePageInfo,
-            resolve: parent => {
+            resolve: (parent) => {
                 let start = 0;
 
                 if (parent.after != undefined) {

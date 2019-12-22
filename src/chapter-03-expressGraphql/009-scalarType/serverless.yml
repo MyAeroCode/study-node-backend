@@ -8,7 +8,7 @@ provider:
 
 functions:
     main:
-        handler:  out/chapter-03-graphql/009-scalarType/Lambda.handler
+        handler: out/chapter-03-expressGraphql/009-scalarType/Lambda.handler
         events:
             - http:
                   path: /

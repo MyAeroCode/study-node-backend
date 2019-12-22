@@ -15,8 +15,8 @@ export const echo = async (event: APIGatewayEvent) => {
 
     if (paramMap != null) {
         Object.keys(paramMap)
-            .map(key => `${key} : ${paramMap!![key]}`)
-            .forEach(str => {
+            .map((key) => `${key} : ${paramMap!![key]}`)
+            .forEach((str) => {
                 messages.push(str);
             });
     } else {

@@ -1,9 +1,4 @@
-import {
-    GraphQLObjectType,
-    GraphQLString,
-    GraphQLSchema,
-    GraphQLInt
-} from "graphql";
+import { GraphQLObjectType, GraphQLString, GraphQLSchema, GraphQLInt } from "graphql";
 
 let tuple = new GraphQLObjectType({
     name: "tuple",

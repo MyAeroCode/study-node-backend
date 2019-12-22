@@ -1,18 +1,8 @@
-import {
-    GraphQLObjectType,
-    GraphQLString,
-    GraphQLBoolean,
-    GraphQLInt,
-    GraphQLList
-} from "graphql";
+import { GraphQLObjectType, GraphQLString, GraphQLBoolean, GraphQLInt, GraphQLList } from "graphql";
 import { User } from "../ds/User";
 import { UserRequestArgs, UserVectorRange } from "./interface";
 import testCase from "../testCaseGenerator/TestCase";
-import {
-    base64encode,
-    adjustNumber,
-    getIdxByCursor
-} from "../Library";
+import { base64encode, adjustNumber, getIdxByCursor } from "../Library";
 
 export const user = new GraphQLObjectType<User>({
     name: "user",
@@ -49,13 +39,7 @@ export const userPageInfo = new GraphQLObjectType<UserVectorRange>({
                 let list = testCase.userList;
                 if (list.length == 0) return null;
 
-                return source.forward
-                    ? base64encode(
-                          list[adjustNumber(0, list.length, source.srt)].name
-                      )
-                    : base64encode(
-                          list[adjustNumber(0, list.length, source.end)].name
-                      );
+                return source.forward ? base64encode(list[adjustNumber(0, list.length, source.srt)].name) : base64encode(list[adjustNumber(0, list.length, source.end)].name);
             }
         },
         after: {
@@ -64,22 +48,14 @@ export const userPageInfo = new GraphQLObjectType<UserVectorRange>({
                 let list = testCase.userList;
                 if (list.length == 0) return null;
 
-                return source.forward
-                    ? base64encode(
-                          list[adjustNumber(0, list.length, source.end)].name
-                      )
-                    : base64encode(
-                          list[adjustNumber(0, list.length, source.srt)].name
-                      );
+                return source.forward ? base64encode(list[adjustNumber(0, list.length, source.end)].name) : base64encode(list[adjustNumber(0, list.length, source.srt)].name);
             }
         },
         hasNextPage: {
             type: GraphQLBoolean,
             resolve: (source: UserVectorRange): boolean => {
                 let list = testCase.userList;
-                return source.forward
-                    ? source.end != list.length
-                    : source.srt != 0;
+                return source.forward ? source.end != list.length : source.srt != 0;
             }
         }
     }
@@ -103,20 +79,12 @@ export const userConnection = new GraphQLObjectType<UserRequestArgs>({
                 let list = testCase.userList;
 
                 // 기준점 찾기
-                if (cursor)
-                    cursorIdx = getIdxByCursor<User>(list, cursor, v =>
-                        base64encode(v.name)
-                    );
+                if (cursor) cursorIdx = getIdxByCursor<User>(list, cursor, (v) => base64encode(v.name));
                 else if (get < 0) cursorIdx = list.length;
                 else if (get > 0) cursorIdx = -1;
 
                 // 데이터 반환하기.
-                return get < 0
-                    ? list.slice(Math.max(cursorIdx + get, 0), cursorIdx)
-                    : list.slice(
-                          cursorIdx + 1,
-                          Math.min(cursorIdx + get + 1, list.length)
-                      );
+                return get < 0 ? list.slice(Math.max(cursorIdx + get, 0), cursorIdx) : list.slice(cursorIdx + 1, Math.min(cursorIdx + get + 1, list.length));
             }
         },
         pageInfo: {
@@ -130,10 +98,7 @@ export const userConnection = new GraphQLObjectType<UserRequestArgs>({
                 let list = testCase.userList;
 
                 // 기준점 찾기
-                if (cursor)
-                    cursorIdx = getIdxByCursor<User>(list, cursor, v =>
-                        base64encode(v.name)
-                    );
+                if (cursor) cursorIdx = getIdxByCursor<User>(list, cursor, (v) => base64encode(v.name));
                 else if (get < 0) cursorIdx = list.length;
                 else if (get > 0) cursorIdx = -1;
 

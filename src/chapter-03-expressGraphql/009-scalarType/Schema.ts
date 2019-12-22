@@ -1,10 +1,4 @@
-import {
-    GraphQLObjectType,
-    GraphQLSchema,
-    GraphQLScalarType,
-    GraphQLInt,
-    GraphQLList
-} from "graphql";
+import { GraphQLObjectType, GraphQLSchema, GraphQLScalarType, GraphQLInt, GraphQLList } from "graphql";
 
 /**
  * RGB의 채널값 3개가 담긴 배열을 전달받아,

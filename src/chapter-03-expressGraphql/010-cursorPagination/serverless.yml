@@ -8,7 +8,7 @@ provider:
 
 functions:
     main:
-        handler:  out/chapter-03-graphql/010-cursorPagination/Lambda.handler
+        handler: out/chapter-03-expressGraphql/010-cursorPagination/Lambda.handler
         events:
             - http:
                   path: /

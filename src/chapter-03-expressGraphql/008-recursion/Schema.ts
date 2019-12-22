@@ -1,9 +1,4 @@
-import {
-    GraphQLObjectType,
-    GraphQLSchema,
-    GraphQLInt,
-    GraphQLList
-} from "graphql";
+import { GraphQLObjectType, GraphQLSchema, GraphQLInt, GraphQLList } from "graphql";
 
 let adder: GraphQLObjectType = new GraphQLObjectType({
     name: "adder",

@@ -1,0 +1,23 @@
+service: hello-world
+
+provider:
+    runtime: nodejs8.10
+    name: aws
+    stage: dev
+    region: ap-northeast-2
+
+functions:
+    main:
+        handler: out/chapter-01-lambda/003-contextParam/Handler.returnContext
+        events:
+            - http:
+                  path: /
+                  method: get
+                  cors: true
+            - http:
+                  path: /
+                  method: post
+                  cors: true
+
+plugins:
+    - serverless-offline

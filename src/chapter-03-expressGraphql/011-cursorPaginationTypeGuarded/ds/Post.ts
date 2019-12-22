@@ -1,15 +1,14 @@
 import { User } from "./User";
 import { Like } from "./Like";
-import { IsString } from "class-validator";
-import { TypeGuard } from "ts-type-guard";
+import { IsString, ValidateNested } from "class-validator";
 
 export class Post {
     @IsString()
     title!: string;
 
-    @TypeGuard.GuardObject(User)
+    @ValidateNested()
     author!: User;
 
-    @TypeGuard.GuardArray(Like)
+    @ValidateNested()
     liked!: Like[];
 }

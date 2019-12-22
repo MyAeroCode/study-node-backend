@@ -1,6 +1,5 @@
 import { Post } from "../ds/Post";
-import { IsNumber, IsOptional, IsString, IsBoolean } from "class-validator";
-import { TypeGuard } from "ts-type-guard";
+import { IsNumber, IsOptional, IsString, IsBoolean, ValidateNested } from "class-validator";
 
 export class PostRequestArgs {
     @IsNumber()
@@ -31,7 +30,7 @@ export class LikeRequestArgs {
     @IsString()
     postCursor!: string;
 
-    @TypeGuard.GuardObject(new Post())
+    @ValidateNested()
     post!: Post;
 }
 
@@ -67,6 +66,6 @@ export class LikeVectorRange {
     @IsBoolean()
     forward!: boolean;
 
-    @TypeGuard.GuardObject(new Post())
+    @ValidateNested()
     post!: Post;
 }

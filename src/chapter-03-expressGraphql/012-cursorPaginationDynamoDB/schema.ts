@@ -2,7 +2,7 @@ import { GraphQLObjectType, GraphQLSchema, GraphQLNonNull, GraphQLInt, GraphQLSt
 import { ConnectionArgs, User, UserConnection, UserEdge, UserPageInfo } from "./ds";
 import { base64decode, base64encode, adjustNumber } from "./Library";
 import { conn } from "./conn";
-import { TypeCheck } from "ts-type-guard";
+import { validateSync } from "class-validator";
 var attr = require("dynamodb-data-types").AttributeValue;
 
 const user = new GraphQLObjectType<User, any, any>({
@@ -75,7 +75,7 @@ const query = new GraphQLObjectType<null, any, any>({
                 after: { type: GraphQLString }
             },
             resolve: async (_, args: ConnectionArgs): Promise<UserConnection> => {
-                if (TypeCheck.hasError(args, ConnectionArgs)) {
+                if (validateSync(args).length != 0) {
                     throw new Error("타입가드 에러");
                 }
 
@@ -101,8 +101,9 @@ const query = new GraphQLObjectType<null, any, any>({
                     let edge: UserEdge = Object.assign(new UserEdge(), {
                         node: v
                     });
-                    if (TypeCheck.hasError(edge, UserEdge)) throw new Error("typeguard");
-                    else edges.push(edge);
+                    if (validateSync(args).length != 0) {
+                        throw new Error("타입가드 에러");
+                    } else edges.push(edge);
                 });
 
                 return {

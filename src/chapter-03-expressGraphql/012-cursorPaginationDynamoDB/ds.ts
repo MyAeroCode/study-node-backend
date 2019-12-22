@@ -1,6 +1,5 @@
-import { IsString, IsBoolean, IsNumber, IsOptional } from "class-validator";
+import { IsString, IsBoolean, IsNumber, IsOptional, ValidateNested } from "class-validator";
 import { base64encode } from "./Library";
-import { TypeGuard } from "ts-type-guard";
 
 export class User {
     @IsString()
@@ -8,7 +7,7 @@ export class User {
 }
 
 export class UserEdge {
-    @TypeGuard.GuardObject(User)
+    @ValidateNested()
     node!: User;
 
     getCursor(): string {
@@ -38,10 +37,10 @@ export class UserConnection {
     @IsNumber()
     scannedCount!: number;
 
-    @TypeGuard.GuardArray(UserEdge)
+    @ValidateNested()
     edges!: UserEdge[];
 
-    @TypeGuard.GuardObject(UserPageInfo)
+    @ValidateNested()
     pageInfo!: UserPageInfo;
 }
 

@@ -7,7 +7,7 @@ import { User } from "../ds/User";
 import { Post } from "../ds/Post";
 import testCase from "../testCaseGenerator/TestCase";
 import { getIdxByCursor, base64encode } from "../Library";
-import { TypeCheck } from "ts-type-guard";
+import { validateSync } from "class-validator";
 
 export const query = new GraphQLObjectType<any, any, any>({
     name: "connectionTestQuery",
@@ -20,8 +20,8 @@ export const query = new GraphQLObjectType<any, any, any>({
                 cursor: { type: GraphQLString }
             },
             resolve: (_, args: UserRequestArgs): UserRequestArgs => {
-                if (TypeCheck.hasError(args, UserRequestArgs)) {
-                    throw new Error("인자 형식이 맞지 않습니다.");
+                if (validateSync(args).length != 0) {
+                    throw new Error("타입가드 에러");
                 }
                 return args;
             }
@@ -33,8 +33,8 @@ export const query = new GraphQLObjectType<any, any, any>({
                 cursor: { type: GraphQLString }
             },
             resolve: (_, args: PostRequestArgs): PostRequestArgs => {
-                if (TypeCheck.hasError(args, PostRequestArgs)) {
-                    throw new Error("인자 형식이 맞지 않습니다.");
+                if (validateSync(args).length != 0) {
+                    throw new Error("타입가드 에러");
                 }
                 return args;
             }
@@ -47,8 +47,8 @@ export const query = new GraphQLObjectType<any, any, any>({
                 postCursor: { type: GraphQLString }
             },
             resolve: (_, args: LikeRequestArgs): LikeRequestArgs => {
-                if (TypeCheck.hasError(args, LikeRequestArgs)) {
-                    throw new Error("인자 형식이 맞지 않습니다.");
+                if (validateSync(args).length != 0) {
+                    throw new Error("타입가드 에러");
                 }
 
                 let postIndex: number = getIdxByCursor(testCase.postList, args.postCursor, (post) => base64encode(post.title));

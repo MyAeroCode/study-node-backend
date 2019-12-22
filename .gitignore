@@ -6,3 +6,6 @@ node_modules/*
 
 # 컴파일 결과물
 out/*
+
+# 메인문
+src/index.ts

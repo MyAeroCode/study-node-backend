@@ -35,6 +35,7 @@
         "typescript": "^3.7.3"
     },
     "dependencies": {
+        "@types/graphql": "^14.5.0",
         "apollo-server-express": "^2.9.14",
         "aws-sdk": "^2.592.0",
         "aws-serverless-express": "^3.3.6",
@@ -45,8 +46,9 @@
         "express": "^4.17.1",
         "express-graphql": "^0.9.0",
         "graphql": "^14.5.8",
+        "reflect-metadata": "^0.1.13",
         "response-time": "^2.3.2",
         "store": "^2.0.12",
-        "ts-type-guard": "github:MyAeroCode/ts-type-guard"
+        "type-graphql": "^0.17.6"
     }
 }

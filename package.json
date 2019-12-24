@@ -48,6 +48,7 @@
         "reflect-metadata": "^0.1.13",
         "response-time": "^2.3.2",
         "store": "^2.0.12",
-        "type-graphql": "^0.17.6"
+        "type-graphql": "^0.17.6",
+        "typedi": "^0.8.0"
     }
 }

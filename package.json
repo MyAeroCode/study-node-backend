@@ -25,6 +25,7 @@
         "@types/aws-lambda": "^8.10.37",
         "@types/aws-serverless-express": "^3.3.2",
         "@types/cookie-parser": "^1.4.2",
+        "@types/graphql": "^14.5.0",
         "@types/node": "^12.12.17",
         "@types/node-fetch": "^2.5.4",
         "@types/response-time": "^2.3.4",
@@ -35,12 +36,10 @@
         "typescript": "^3.7.3"
     },
     "dependencies": {
-        "@types/graphql": "^14.5.0",
         "apollo-server-express": "^2.9.14",
         "aws-sdk": "^2.592.0",
         "aws-serverless-express": "^3.3.6",
         "body-parser": "^1.19.0",
-        "class-validator": "^0.11.0",
         "cookie-parser": "^1.4.4",
         "dynamodb-data-types": "^3.0.1",
         "express": "^4.17.1",

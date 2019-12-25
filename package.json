@@ -4,9 +4,9 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
         "build": "tsc",
         "start": "node ./out/index.js",
+        "watch": "tsc-watch",
         "deploy": "npm run build && serverless deploy",
         "offline": "npm run build && serverless offline"
     },
@@ -48,6 +48,7 @@
         "reflect-metadata": "^0.1.13",
         "response-time": "^2.3.2",
         "store": "^2.0.12",
+        "tsc-watch": "^4.0.0",
         "type-graphql": "^0.17.6",
         "typedi": "^0.8.0"
     }

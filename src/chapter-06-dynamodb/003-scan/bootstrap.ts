@@ -20,6 +20,4 @@ export default async function bootstrap() {
     }
     console.log("lastKey:", scanResult.pages().lastEvaluatedKey);
     console.log(scanResult.scannedCount);
-
-    mapper.query();
 }

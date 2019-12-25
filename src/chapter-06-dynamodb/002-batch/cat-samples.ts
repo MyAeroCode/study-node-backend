@@ -7,7 +7,8 @@ for (let i = 0; i < 1000; i++) {
     samples.set(
         name,
         Object.assign(new Cat(), {
-            name: name
+            name: name,
+            type: Math.floor(Math.random() * 10) % 3
         })
     );
 }

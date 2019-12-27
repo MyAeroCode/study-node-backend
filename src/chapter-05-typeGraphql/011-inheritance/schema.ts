@@ -3,10 +3,10 @@
  * 반드시 "reflect-metadata"를 import해야 한다.
  */
 import "reflect-metadata";
-import { buildSchemaSync, Query, Field, ObjectType, Arg, ArgsType, Resolver, Int, InputType, FieldResolver } from "type-graphql";
+import { buildSchemaSync, Query, Field, ObjectType, Arg, Resolver, Int, InputType, FieldResolver } from "type-graphql";
 
 // extends를 사용하여 일반적인 상속과 동일하게 코딩한다.
-// isAbstract는 해당 오브젝트가 스키마에 등록하지 않도록 만든다.
+// isAbstract 옵션은 같은 이름으로 여러번 등록되는 것을 막아준다.
 //
 @InputType({ isAbstract: true })
 class BaseInput {
@@ -28,14 +28,16 @@ class SuperObject extends BaseObject {
     @Field(() => Int)
     superObjectField!: number;
 }
-@Resolver((of) => BaseObject, { isAbstract: true })
+
+@Resolver(() => BaseObject, { isAbstract: true })
 abstract class BaseResolver {
     @FieldResolver(() => Int)
     baseObjectField() {
         return 1;
     }
 }
-@Resolver((of) => SuperObject)
+
+@Resolver(() => SuperObject)
 class SuperResolver extends BaseResolver {
     @FieldResolver(() => Int)
     superObjectField() {

@@ -38,7 +38,7 @@
     "dependencies": {
         "@aws/dynamodb-data-mapper": "^0.7.3",
         "@aws/dynamodb-data-mapper-annotations": "^0.7.3",
-        "apollo-server-express": "^2.9.14",
+        "apollo-server-express": "^2.14.2",
         "apollo-server-lambda": "^2.9.14",
         "aws-sdk": "^2.596.0",
         "aws-serverless-express": "^3.3.6",
